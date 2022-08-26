@@ -23,9 +23,11 @@ public class Buzon {
     			e.printStackTrace();
     		}
     	}
-    	s += "T" + Integer.toString(transf) + Integer.toString(nivel);
-    	arrBuzon.add(s);
-    	notifyAll();
+        if (!s.equals("FIN")) {
+            s += "T" + Integer.toString(transf) + Integer.toString(nivel);
+            arrBuzon.add(s);
+            notifyAll();
+        }
     }
 
     public synchronized void almacenarInicial(String s) {
