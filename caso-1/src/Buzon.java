@@ -19,7 +19,7 @@ public class Buzon {
     			e.printStackTrace();
     		}
     	}
-    	s += Integer.toString(transf) + "" + Integer.toString(nivel);
+    	s += "T" + Integer.toString(transf) + "" + Integer.toString(nivel);
     	arrBuzon.add(s);
     	notify();
     }
