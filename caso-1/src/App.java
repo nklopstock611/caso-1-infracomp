@@ -29,13 +29,13 @@ public class App {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (j == 0) {
-                    procesosIntermedios[i][j] = new ProcesoIntermedio(entrada, intermedios[i][j], j, i);
+                    procesosIntermedios[i][j] = new ProcesoIntermedio(entrada, intermedios[i][j], j + 1, i + 1);
                 }
                 else if (j == 1) { // [j - 1] porque la matriz de buzones internos es 2 x 3, mientras que la de procesos es 3 x 3.
-                    procesosIntermedios[i][j] = new ProcesoIntermedio(intermedios[i][j - 1], intermedios[i][j], j, i);
+                    procesosIntermedios[i][j] = new ProcesoIntermedio(intermedios[i][j - 1], intermedios[i][j], j + 1, i + 1);
                 }
                 else { // [j - 1] porque la matriz de buzones internos es 2 x 3, mientras que la de procesos es 3 x 3.
-                    procesosIntermedios[i][j] = new ProcesoIntermedio(intermedios[i][j - 1], salida, j, i);
+                    procesosIntermedios[i][j] = new ProcesoIntermedio(intermedios[i][j - 1], salida, j + 1, i + 1);
                 }
             }
         }
@@ -46,31 +46,43 @@ public class App {
 
         // inputs
 
-        Scanner scanner = new Scanner(System.in);
-        
-        System.out.println("Ingrese el tamaño de los buzones de inicio y de fin: ");
-        int sizeBuzonIniFini = scanner.nextInt();
+        try (Scanner scanner = new Scanner(System.in)) {
+            
+            System.out.println("Ingrese el tamaño de los buzones de inicio y de fin: ");
+            int sizeBuzonIniFini = scanner.nextInt();
 
-        System.out.println("Ingrese el tamaño de los buzones intermedios: ");
-        int sizeBuzonIntermedio = scanner.nextInt();
+            System.out.println("Ingrese el tamaño de los buzones intermedios: ");
+            int sizeBuzonIntermedio = scanner.nextInt();
 
-        System.out.println("Ingrese la cantidad de subconjuntos: ");
-        int cantSubconjuntos = scanner.nextInt();
+            System.out.println("Ingrese la cantidad de subconjuntos: ");
+            int cantSubconjuntos = scanner.nextInt();
 
-        // creacion subconjuntos
+            // creacion subconjuntos
 
-        ArrayList<String> subconjuntos = crearSubconjuntos(cantSubconjuntos);
+            ArrayList<String> subconjuntos = crearSubconjuntos(cantSubconjuntos);
 
-        // creacion buzones
+            // creacion buzones
 
-        Buzon buzonInicial = new Buzon(sizeBuzonIniFini);
-        Buzon buzonFinal = new Buzon(sizeBuzonIniFini);
-        Buzon[][] buzonesIntermedios = crearBuzonesIntermedios(sizeBuzonIntermedio);
+            Buzon buzonInicial = new Buzon(sizeBuzonIniFini);
+            Buzon buzonFinal = new Buzon(sizeBuzonIniFini);
+            Buzon[][] buzonesIntermedios = crearBuzonesIntermedios(sizeBuzonIntermedio);
 
-        // creacion procesos
-        ProcesoInicial procesoInicial = new ProcesoInicial(buzonInicial, subconjuntos);
-        ProcesoFinal procesoFinal = new ProcesoFinal(buzonFinal);
-        ProcesoIntermedio[][] procesosIntermedios = crearProcesoIntermedio(buzonInicial, buzonFinal, buzonesIntermedios);
+            // creacion procesos
+            ProcesoInicial procesoInicial = new ProcesoInicial(buzonInicial, subconjuntos);
+            ProcesoFinal procesoFinal = new ProcesoFinal(buzonFinal);
+            ProcesoIntermedio[][] procesosIntermedios = crearProcesoIntermedio(buzonInicial, buzonFinal, buzonesIntermedios);
+   
+            // ejecucion procesos
+
+            procesoInicial.start();
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    procesosIntermedios[i][j].start();
+                }
+            }
+            procesoFinal.start();
+        }
+    
     }
     
 }

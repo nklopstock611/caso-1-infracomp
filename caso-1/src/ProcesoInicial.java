@@ -10,6 +10,17 @@ public class ProcesoInicial extends Thread{
         this.buzon = pBuzon;
         this.subconjuntos = pSubconjuntos;        
     }
+
+    public void run() {
+        for (int i = 0; i < this.subconjuntos.size(); i++) {
+            System.out.println("ProcesoInicial almaceno: " + this.subconjuntos.get(i));
+            this.buzon.almacenarInicial(this.subconjuntos.get(i));
+        }
+        for (int i = 0; i < 4; i++) {
+            this.buzon.almacenarInicial("FIN");
+            System.out.println("ProcesoInicial almaceno: FIN");
+        }
+    }
     
     // cuando termina de mandar los N mensajes, manda 3 FIN's.
     // pasarlo por parametro a almacenar del buzon.

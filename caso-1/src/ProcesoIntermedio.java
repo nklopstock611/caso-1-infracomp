@@ -25,8 +25,12 @@ public class ProcesoIntermedio extends Thread {
     public void run() {
     	while (!this.mensaje.equals("FIN")) {
     		String s = this.buzonEntrada.retirar();
+            System.out.println("ProcesoIntermedio retiro: " + s);
     		setMensaje(s);
+            System.out.println("mensaje acutal: " + this.mensaje);
     		transformar(this.mensaje);
+            System.out.println("ProcesoIntermedio almaceno: " + this.mensaje);
+            this.buzonSalida.almacenar(this.mensaje, colTransformacion, filaNivel);            
     	}
     }
       
