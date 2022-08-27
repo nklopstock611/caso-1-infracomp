@@ -6,12 +6,14 @@ public class ProcesoIntermedio extends Thread {
     private String mensaje = "";
     private int filaNivel;
     private int colTransformacion;
+    private int n;
 
-    public ProcesoIntermedio(Buzon pBuzonEntrada, Buzon pBuzonSalida, int pColTransformacion, int pFilaNivel) {
+    public ProcesoIntermedio(Buzon pBuzonEntrada, Buzon pBuzonSalida, int pColTransformacion, int pFilaNivel, int pN) {
         this.buzonEntrada = pBuzonEntrada;
         this.buzonSalida = pBuzonSalida;
         this.colTransformacion = pColTransformacion;
         this.filaNivel = pFilaNivel;
+        this.n = pN;
     }
     
     public void setMensaje(String s) {
@@ -34,16 +36,18 @@ public class ProcesoIntermedio extends Thread {
         //     Integer.toString(filaNivel) + " almaceno: " + this.mensaje);
         //     this.buzonSalida.almacenar(this.mensaje, colTransformacion, filaNivel);            
     	// }
-        if (!this.mensaje.equals("FIN")) {
-            String s = this.buzonEntrada.retirar();
-            System.out.println("ProcesoIntermedio " + Integer.toString(colTransformacion) + 
-                                Integer.toString(filaNivel) + " retiro: " + s);
-    		setMensaje(s);
-            System.out.println("mensaje actual: " + this.mensaje);
-    		transformar(this.mensaje);
-            System.out.println("ProcesoIntermedio " + Integer.toString(colTransformacion) + 
-            Integer.toString(filaNivel) + " almaceno: " + this.mensaje);
-            this.buzonSalida.almacenar(this.mensaje, colTransformacion, filaNivel);
+        for (int i = 0; i < this.n; i++ ) {
+            if (!this.mensaje.equals("FIN")) {
+                String s = this.buzonEntrada.retirar();
+                //System.out.println("ProcesoIntermedio " + Integer.toString(colTransformacion) + 
+                //                    Integer.toString(filaNivel) + " retiro: " + s);
+                setMensaje(s);
+                //System.out.println("mensaje actual: " + this.mensaje);
+                transformar(this.mensaje);
+                //System.out.println("ProcesoIntermedio " + Integer.toString(colTransformacion) + 
+                //                    Integer.toString(filaNivel) + " almaceno: " + this.mensaje);
+                this.buzonSalida.almacenar(this.mensaje, colTransformacion, filaNivel);
+            }
         }
     }
       

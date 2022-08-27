@@ -24,18 +24,18 @@ public class App {
         return buzonesIntermedios;
     }
 
-    public static ProcesoIntermedio[][] crearProcesoIntermedio(Buzon entrada, Buzon salida, Buzon[][] intermedios) {
+    public static ProcesoIntermedio[][] crearProcesoIntermedio(Buzon entrada, Buzon salida, Buzon[][] intermedios, int n) {
         ProcesoIntermedio[][] procesosIntermedios = new ProcesoIntermedio[3][3];
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (j == 0) {
-                    procesosIntermedios[i][j] = new ProcesoIntermedio(entrada, intermedios[i][j], j + 1, i + 1);
+                    procesosIntermedios[i][j] = new ProcesoIntermedio(entrada, intermedios[i][j], j + 1, i + 1, n);
                 }
                 else if (j == 1) { // [j - 1] porque la matriz de buzones internos es 2 x 3, mientras que la de procesos es 3 x 3.
-                    procesosIntermedios[i][j] = new ProcesoIntermedio(intermedios[i][j - 1], intermedios[i][j], j + 1, i + 1);
+                    procesosIntermedios[i][j] = new ProcesoIntermedio(intermedios[i][j - 1], intermedios[i][j], j + 1, i + 1, n);
                 }
                 else { // [j - 1] porque la matriz de buzones internos es 2 x 3, mientras que la de procesos es 3 x 3.
-                    procesosIntermedios[i][j] = new ProcesoIntermedio(intermedios[i][j - 1], salida, j + 1, i + 1);
+                    procesosIntermedios[i][j] = new ProcesoIntermedio(intermedios[i][j - 1], salida, j + 1, i + 1, n);
                 }
             }
         }
@@ -69,8 +69,8 @@ public class App {
 
             // creacion procesos
             ProcesoInicial procesoInicial = new ProcesoInicial(buzonInicial, subconjuntos);
-            ProcesoFinal procesoFinal = new ProcesoFinal(buzonFinal);
-            ProcesoIntermedio[][] procesosIntermedios = crearProcesoIntermedio(buzonInicial, buzonFinal, buzonesIntermedios);
+            ProcesoFinal procesoFinal = new ProcesoFinal(buzonFinal, cantSubconjuntos);
+            ProcesoIntermedio[][] procesosIntermedios = crearProcesoIntermedio(buzonInicial, buzonFinal, buzonesIntermedios, cantSubconjuntos);
    
             // ejecucion procesos
 
