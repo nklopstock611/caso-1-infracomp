@@ -15,15 +15,19 @@ public class ProcesoFinal extends Thread {
     }
 
     public void run() {
-        // while (this.buzon.getArrBuzon().size() == 0) {
-        //     // wait(); type beat
-        // }
-        for (int i = 0; i < this.n; i++) {
-            String s = this.buzon.retirar();
-            System.out.println("ProcesoFinal retiro: " + s);
-            this.mensajeFinal.add(s);
+        System.out.println(buzon.getProcesados());
+        while ( buzon.getProcesados()< n) {
+            while (buzon.getArrBuzon().size() == 0){
+                Thread.yield();
+            }
+            synchronized(buzon){
+                String mensaje = this.buzon.retirar();
+                this.buzon.setProcesados();
+                System.out.println(buzon.getProcesados());
+                System.out.println("ProcesoFinal retiro: " + mensaje);
+                this.mensajeFinal.add(mensaje);
+            }
         }
-
     }
     
 }
