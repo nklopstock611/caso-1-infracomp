@@ -15,15 +15,9 @@ public class ProcesoFinal extends Thread {
     }
 
     public void run() {
-        System.out.println(buzon.getProcesados());
-        while ( buzon.getProcesados()< n) {
-            while (buzon.getArrBuzon().size() == 0){
-                Thread.yield();
-            }
+        for (int i = 0; i < n; i++) {
             synchronized(buzon){
-                String mensaje = this.buzon.retirar();
-                this.buzon.setProcesados();
-                System.out.println(buzon.getProcesados());
+                String mensaje = this.buzon.retirarFinal();
                 System.out.println("ProcesoFinal retiro: " + mensaje);
                 this.mensajeFinal.add(mensaje);
             }

@@ -14,14 +14,11 @@ public class ProcesoInicial extends Thread{
     public void run() {
         for (int i = 0; i < this.subconjuntos.size(); i++) {
             String mensaje = this.subconjuntos.get(i);
-            while (buzon.getArrBuzon().size() == buzon.getN()){
-                Thread.yield();
-            }
             synchronized(buzon){
                 this.buzon.almacenarInicial(mensaje);
-                buzon.notifyAll();
+                System.out.println("ProcesoInicial almaceno: " + mensaje);
             }
-            System.out.println("ProcesoInicial almaceno: " + this.subconjuntos.get(i));
+            
         }
     }
 }

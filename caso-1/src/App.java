@@ -9,6 +9,9 @@ public class App {
         for (int i = 1; i < n + 1; i++) {
             subconjuntos.add("M" + i);
         }
+        subconjuntos.add("FIN");
+        subconjuntos.add("FIN");
+        subconjuntos.add("FIN");
 
         return subconjuntos;
     }

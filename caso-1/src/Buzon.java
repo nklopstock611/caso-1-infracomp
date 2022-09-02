@@ -5,7 +5,7 @@ public class Buzon {
 
     private ArrayList<String> arrBuzon;
     private int n;
-    private int procesados = 0;
+    private int cantFin = 0;
 
     public Buzon(int pN) {
         this.n = pN;
@@ -23,21 +23,14 @@ public class Buzon {
     		} catch (InterruptedException e) {
     			e.printStackTrace();
     		}
-    	}
-        if (!s.equals("FIN")) {
-            s += "T" + Integer.toString(transf) + Integer.toString(nivel);
-            arrBuzon.add(s);
         }
+        arrBuzon.add(s);
         notifyAll();
     }
 
     public synchronized void almacenarInicial(String s) {
         while (this.arrBuzon.size() == this.n) {
-    		try {
-    			wait();
-    		} catch (InterruptedException e) {
-    			e.printStackTrace();
-    		}
+    		Thread.yield();
     	}
     	arrBuzon.add(s);
     	notifyAll();
@@ -58,16 +51,17 @@ public class Buzon {
         return s;
     }
 
-    public int getN() {
-        return this.n;
-    }
-
-    public synchronized void setProcesados(){
-        this.procesados++;
-    }
-
-    public int getProcesados(){
-        return this.procesados;
+    public synchronized String retirarFinal() {
+        while (this.arrBuzon.size() == 0 && cantFin < 3) {
+    		Thread.yield();
+        }
+        String s = arrBuzon.remove(0);
+        if (s == "FIN"){
+            this.cantFin++;
+        }
+        notifyAll();
+        
+        return s;
     }
     
 }
