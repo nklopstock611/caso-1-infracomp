@@ -10,10 +10,9 @@ public class ProcesoIntermedio extends Thread {
     private int colTransformacion;
     private int n;
     protected boolean estado = true;
-    protected CyclicBarrier barrera;
 
-    public ProcesoIntermedio(CyclicBarrier pbarrera, Buzon pBuzonEntrada, Buzon pBuzonSalida, int pColTransformacion, int pFilaNivel, int pN) {
-    	this.barrera = pbarrera;
+    public ProcesoIntermedio(Buzon pBuzonEntrada, Buzon pBuzonSalida, int pColTransformacion, int pFilaNivel, int pN) {
+    	
     	this.buzonEntrada = pBuzonEntrada;
         this.buzonSalida = pBuzonSalida;
         this.colTransformacion = pColTransformacion;
@@ -30,16 +29,7 @@ public class ProcesoIntermedio extends Thread {
     }
     
     public void run() {
-    	try
-		{
-			barrera.await();
-		} catch (InterruptedException e)
-		{
-			e.printStackTrace();
-		} catch (BrokenBarrierException e)
-		{
-			e.printStackTrace();
-		}
+ 
     	while (estado)
 		{
 			setMensaje(buzonEntrada.retirarPasivo());
