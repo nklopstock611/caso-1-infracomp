@@ -1,3 +1,5 @@
+import java.util.concurrent.BrokenBarrierException;
+import java.util.concurrent.CyclicBarrier;
 
 public class ProcesoIntermedio extends Thread {
 
@@ -7,9 +9,12 @@ public class ProcesoIntermedio extends Thread {
     private int filaNivel;
     private int colTransformacion;
     private int n;
+    protected boolean estado = true;
+    protected CyclicBarrier barrera;
 
-    public ProcesoIntermedio(Buzon pBuzonEntrada, Buzon pBuzonSalida, int pColTransformacion, int pFilaNivel, int pN) {
-        this.buzonEntrada = pBuzonEntrada;
+    public ProcesoIntermedio(CyclicBarrier pbarrera, Buzon pBuzonEntrada, Buzon pBuzonSalida, int pColTransformacion, int pFilaNivel, int pN) {
+    	this.barrera = pbarrera;
+    	this.buzonEntrada = pBuzonEntrada;
         this.buzonSalida = pBuzonSalida;
         this.colTransformacion = pColTransformacion;
         this.filaNivel = pFilaNivel;
@@ -21,15 +26,44 @@ public class ProcesoIntermedio extends Thread {
     }
     
     public void transformar() {
-        if (this.mensaje!="FIN"){
     	this.mensaje += "T" + Integer.toString(this.colTransformacion) + Integer.toString(filaNivel);
-        }
     }
     
     public void run() {
-        Boolean fin = false;
+    	try
+		{
+			barrera.await();
+		} catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		} catch (BrokenBarrierException e)
+		{
+			e.printStackTrace();
+		}
+    	while (estado)
+		{
+			setMensaje(buzonEntrada.retirarPasivo());
+			System.out.println("ProcesoIntermedio retiró: " + mensaje);
+			
+			if (mensaje.equals("FIN"))
+			{
+				estado = false;
+			}
+			else
+			{
+				transformar();
+				//System.out.println(mensaje);
+			}
+			
+			buzonSalida.almacenarPasivo(mensaje);
+			System.out.println("ProcesoIntermedio almacenó: " + mensaje);
+		}
+    	
+    	
+    	
+        /**Boolean fin = false;
         int i = 0;
-        while (fin == false && i<n){
+        while (fin == false){
             synchronized(buzonEntrada){
             String s = this.buzonEntrada.retirar();
             System.out.println("ProcesoIntermedio retirÃ³: " + mensaje);
@@ -44,7 +78,7 @@ public class ProcesoIntermedio extends Thread {
             System.out.println("ProcesoIntermedio almacenÃ³: " + mensaje);
             }
             i++;
-        }
+        }*/
     }
       
 }

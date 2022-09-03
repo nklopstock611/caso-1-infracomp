@@ -27,12 +27,33 @@ public class Buzon {
         arrBuzon.add(s);
         notifyAll();
     }
+    
+    public void almacenarPasivo(String i) {
+		synchronized (arrBuzon)
+		{
+			while (arrBuzon.size() == this.n)
+			{
+				try 
+				{
+					arrBuzon.wait();
+				} catch (InterruptedException e) 
+				{
+					e.printStackTrace();
+				}
+			}
+		
+			arrBuzon.add(i);
+			
+			arrBuzon.notifyAll();
+		}
+	}
 
     public synchronized void almacenarInicial(String s) {
         while (this.arrBuzon.size() == this.n) {
     		Thread.yield();
     	}
     	arrBuzon.add(s);
+    	//System.out.println("MensajeInicial almacenado");
     	notifyAll();
     }
 
@@ -51,6 +72,34 @@ public class Buzon {
         return s;
     }
 
+    public String retirarPasivo() 
+	{
+		String i;
+		synchronized (arrBuzon)
+		{
+			while(arrBuzon.size() == 0)
+			{
+				try
+				{
+					arrBuzon.wait();
+				} catch (InterruptedException e)
+				{
+					e.printStackTrace();
+				}
+			}
+			
+			//System.out.println("Tamaño antes = " + arrBuzon.size());
+		
+			i = arrBuzon.remove (0);
+			
+			//System.out.println("Tamaño ahora = " + arrBuzon.size());
+			
+			arrBuzon.notifyAll();
+		}
+		
+		return i;
+	}
+    
     public synchronized String retirarFinal() {
         while (this.arrBuzon.size() == 0) {
     		Thread.yield();
