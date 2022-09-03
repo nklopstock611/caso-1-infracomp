@@ -32,7 +32,7 @@ public class App {
     public static ProcesoIntermedio[][] crearProcesoIntermedio(Buzon entrada, Buzon salida, Buzon[][] intermedios, int n) {
         ProcesoIntermedio[][] procesosIntermedios = new ProcesoIntermedio[3][3];
         
-        CyclicBarrier barrera = new CyclicBarrier(4);
+        CyclicBarrier barrera = new CyclicBarrier(3);
         
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -78,6 +78,7 @@ public class App {
             // creacion procesos
             ProcesoInicial procesoInicial = new ProcesoInicial(buzonInicial, subconjuntos);
             ProcesoFinal procesoFinal = new ProcesoFinal(buzonFinal, cantSubconjuntos);
+            
             ProcesoIntermedio[][] procesosIntermedios = crearProcesoIntermedio(buzonInicial, buzonFinal, buzonesIntermedios, cantSubconjuntos);
    
             // ejecucion procesos
