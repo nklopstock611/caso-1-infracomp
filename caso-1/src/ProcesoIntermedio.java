@@ -32,6 +32,7 @@ public class ProcesoIntermedio extends Thread {
         while (fin == false && i<n){
             synchronized(buzonEntrada){
             String s = this.buzonEntrada.retirar();
+            System.out.println("ProcesoIntermedio retiró: " + mensaje);
             if (s.equals("FIN")){
                 fin = true;
             }
@@ -40,6 +41,7 @@ public class ProcesoIntermedio extends Thread {
             }
             synchronized(buzonSalida){
             this.buzonSalida.almacenar(this.mensaje, colTransformacion, filaNivel);
+            System.out.println("ProcesoIntermedio almacenó: " + mensaje);
             }
             i++;
         }

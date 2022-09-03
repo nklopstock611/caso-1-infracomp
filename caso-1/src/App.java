@@ -9,10 +9,11 @@ public class App {
         for (int i = 1; i < n + 1; i++) {
             subconjuntos.add("M" + i);
         }
+        /**
         subconjuntos.add("FIN");
         subconjuntos.add("FIN");
         subconjuntos.add("FIN");
-
+        */
         return subconjuntos;
     }
 
@@ -81,6 +82,7 @@ public class App {
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
                     procesosIntermedios[i][j].start();
+                    //Código Tiempo espera
                 }
             }
             procesoFinal.start();
