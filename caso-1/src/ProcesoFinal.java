@@ -15,9 +15,13 @@ public class ProcesoFinal extends Thread {
     }
 
     public void run() {
-        for (int i = 0; i < n; i++) {
+        int cantFin = 0;
+        while (cantFin < 3){
             synchronized(buzon){
                 String mensaje = this.buzon.retirarFinal();
+                if (mensaje.equals("FIN")){
+                    cantFin++;
+                }
                 System.out.println("ProcesoFinal retiro: " + mensaje);
                 this.mensajeFinal.add(mensaje);
             }

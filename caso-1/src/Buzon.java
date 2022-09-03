@@ -52,13 +52,10 @@ public class Buzon {
     }
 
     public synchronized String retirarFinal() {
-        while (this.arrBuzon.size() == 0 && cantFin < 3) {
+        while (this.arrBuzon.size() == 0) {
     		Thread.yield();
         }
         String s = arrBuzon.remove(0);
-        if (s == "FIN"){
-            this.cantFin++;
-        }
         notifyAll();
         
         return s;

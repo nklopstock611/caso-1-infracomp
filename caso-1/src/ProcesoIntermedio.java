@@ -27,15 +27,21 @@ public class ProcesoIntermedio extends Thread {
     }
     
     public void run() {
-        for (int i = 0; i < this.n; i++ ) {
+        Boolean fin = false;
+        int i = 0;
+        while (fin == false && i<n){
             synchronized(buzonEntrada){
             String s = this.buzonEntrada.retirar();
+            if (s.equals("FIN")){
+                fin = true;
+            }
             setMensaje(s);
             transformar();
             }
             synchronized(buzonSalida){
             this.buzonSalida.almacenar(this.mensaje, colTransformacion, filaNivel);
             }
+            i++;
         }
     }
       
