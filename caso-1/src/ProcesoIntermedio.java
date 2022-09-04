@@ -35,11 +35,11 @@ public class ProcesoIntermedio extends Thread {
                 fin = true;
             }
             setMensaje(s);
-            System.out.println("El proceso intermedio " + colTransformacion + " retiró "+ mensaje);
+            //System.out.println("El proceso intermedio " + colTransformacion + " retiró "+ mensaje);
             transformar();
             
             this.buzonSalida.almacenar(this.mensaje);
-            System.out.println("El proceso intermedio " + colTransformacion + " almacenó "+ mensaje);
+            //System.out.println("El proceso intermedio " + colTransformacion + " almacenó "+ mensaje);
         }
     }
       

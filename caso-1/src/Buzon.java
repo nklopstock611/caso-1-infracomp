@@ -5,7 +5,6 @@ public class Buzon {
 
     private ArrayList<String> arrBuzon;
     private int n;
-    private int cantFin = 0;
 
     public Buzon(int pN) {
         this.n = pN;

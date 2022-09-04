@@ -23,7 +23,6 @@ public class ProcesoInicial extends Thread{
             }
             
         }
-        System.out.println("El proceso inicial finalizó");
     }
 }
 

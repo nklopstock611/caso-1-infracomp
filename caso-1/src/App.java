@@ -10,6 +10,8 @@ public class App {
             subconjuntos.add("M" + i);
         }
         subconjuntos.add("FIN");
+        subconjuntos.add("FIN");
+        subconjuntos.add("FIN");
 
         return subconjuntos;
     }
@@ -76,7 +78,7 @@ public class App {
             // ejecucion procesos
 
             procesoInicial.start();
-            for (int i = 0; i < 1; i++) {
+            for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
                     procesosIntermedios[i][j].start();
                 }

@@ -6,12 +6,9 @@ public class ProcesoFinal extends Thread {
 
     private ArrayList<String> mensajeFinal;
 
-    private int n;
-
     public ProcesoFinal(Buzon pBuzon, int pN) {
         this.buzon = pBuzon;
         this.mensajeFinal = new ArrayList<String>();
-        this.n = pN;
     }
 
     public void run() {
@@ -19,7 +16,7 @@ public class ProcesoFinal extends Thread {
         while (buzon.getArrBuzon().isEmpty()) {
     		Thread.yield();
         }
-        while (cantFin < 1){
+        while (cantFin < 3){
             synchronized(buzon){
                 String mensaje = buzon.retirar();
                 if (mensaje.equals("FIN")){
