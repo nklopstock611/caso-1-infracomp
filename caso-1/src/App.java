@@ -32,13 +32,13 @@ public class App {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (j == 0) {
-                    procesosIntermedios[i][j] = new ProcesoIntermedio(entrada, intermedios[i][j], j + 1, i + 1, n);
+                    procesosIntermedios[i][j] = new ProcesoIntermedio(entrada, intermedios[i][j], j + 1, i + 1);
                 }
                 else if (j == 1) { // [j - 1] porque la matriz de buzones internos es 2 x 3, mientras que la de procesos es 3 x 3.
-                    procesosIntermedios[i][j] = new ProcesoIntermedio(intermedios[i][j - 1], intermedios[i][j], j + 1, i + 1, n);
+                    procesosIntermedios[i][j] = new ProcesoIntermedio(intermedios[i][j - 1], intermedios[i][j], j + 1, i + 1);
                 }
                 else { // [j - 1] porque la matriz de buzones internos es 2 x 3, mientras que la de procesos es 3 x 3.
-                    procesosIntermedios[i][j] = new ProcesoIntermedio(intermedios[i][j - 1], salida, j + 1, i + 1, n);
+                    procesosIntermedios[i][j] = new ProcesoIntermedio(intermedios[i][j - 1], salida, j + 1, i + 1);
                 }
             }
         }

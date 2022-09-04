@@ -6,14 +6,12 @@ public class ProcesoIntermedio extends Thread {
     private String mensaje = "";
     private int filaNivel;
     private int colTransformacion;
-    private int n;
 
-    public ProcesoIntermedio(Buzon pBuzonEntrada, Buzon pBuzonSalida, int pColTransformacion, int pFilaNivel, int pN) {
+    public ProcesoIntermedio(Buzon pBuzonEntrada, Buzon pBuzonSalida, int pColTransformacion, int pFilaNivel) {
         this.buzonEntrada = pBuzonEntrada;
         this.buzonSalida = pBuzonSalida;
         this.colTransformacion = pColTransformacion;
         this.filaNivel = pFilaNivel;
-        this.n = pN;
     }
     
     public void setMensaje(String s) {

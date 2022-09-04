@@ -7,29 +7,24 @@ public class Buzon {
     private int n;
 
     public Buzon(int pN) {
-        this.n = pN;
         this.arrBuzon = new ArrayList<String>();
+        this.n = pN;
     }
 
     public ArrayList<String> getArrBuzon() {
         return arrBuzon;
     }
-    
-    public synchronized void almacenar(String s, int transf, int nivel) {
-        while (this.arrBuzon.size() == this.n) {
-    		try {
-    			wait();
-    		} catch (InterruptedException e) {
-    			e.printStackTrace();
-    		}
+
+    public synchronized void almacenar(String s) {
+    	while (arrBuzon.size() == this.n) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
         arrBuzon.add(s);
         notifyAll();
-    }
-
-    public synchronized void almacenar(String s) {
-    	arrBuzon.add(s);
-    	notifyAll();
     }
 
     
@@ -45,18 +40,6 @@ public class Buzon {
         notifyAll();
         
         return s;
-    }
-
-    public String retirarFinal() {
-        String s = arrBuzon.remove(0);
-        notify();
-        
-        return s;
-    }
-
-    public Boolean isFull(){
-        Boolean respuesta = false || this.arrBuzon.size() == this.n;
-        return respuesta;
     }
     
 }
