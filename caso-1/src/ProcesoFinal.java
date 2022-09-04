@@ -1,14 +1,11 @@
-import java.util.ArrayList;
+
 
 public class ProcesoFinal extends Thread {
 
     private Buzon buzon;
 
-    private ArrayList<String> mensajeFinal;
-
     public ProcesoFinal(Buzon pBuzon, int pN) {
         this.buzon = pBuzon;
-        this.mensajeFinal = new ArrayList<String>();
     }
 
     public void run() {
@@ -22,8 +19,7 @@ public class ProcesoFinal extends Thread {
                 if (mensaje.equals("FIN")){
                     cantFin++;
                 }
-                System.out.println("ProcesoFinal retiro: " + mensaje);
-                this.mensajeFinal.add(mensaje);
+                System.out.println("ProcesoFinal retiro: " + mensaje+ "\n");
             }
         }
     }

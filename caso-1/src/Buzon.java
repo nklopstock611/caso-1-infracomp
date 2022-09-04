@@ -27,7 +27,6 @@ public class Buzon {
         notifyAll();
     }
 
-    
     public synchronized String retirar() {
         while (arrBuzon.size() == 0) {
             try {

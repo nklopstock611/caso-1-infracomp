@@ -19,7 +19,7 @@ public class ProcesoInicial extends Thread{
             String mensaje = this.subconjuntos.get(i);
             synchronized(buzon){
                 this.buzon.almacenar(mensaje);
-                System.out.println("ProcesoInicial almacenó: " + mensaje);
+                System.out.println("ProcesoInicial almacenó: " + mensaje+ "\n");
             }
             
         }
