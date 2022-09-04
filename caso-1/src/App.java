@@ -4,6 +4,13 @@ import java.util.ArrayList;
 
 public class App {
 
+    /**
+     * Este metodo crea un ArrayList de n mensajes que representan los 
+     * subconjuntos
+     * @param n Cantidad de subconjuntos o mensajes a crear
+     * @return ArrayList de n mensajes 
+     */
+
     public static ArrayList<String> crearSubconjuntos(int n) {
         ArrayList<String> subconjuntos = new ArrayList<String>();
         for (int i = 1; i < n + 1; i++) {
@@ -16,6 +23,12 @@ public class App {
         return subconjuntos;
     }
 
+    /**
+     * Este método crea una matriz 3x2 de 6 buzones con capacidad n
+     * @param n Capacidad de los buzones
+     * @return Matriz de buzones 3x2
+     */
+
     public static Buzon[][] crearBuzonesIntermedios(int n) {
         Buzon[][] buzonesIntermedios = new Buzon[3][2];
         for (int i = 0; i < 3; i++) {
@@ -27,7 +40,16 @@ public class App {
         return buzonesIntermedios;
     }
 
-    public static ProcesoIntermedio[][] crearProcesoIntermedio(Buzon entrada, Buzon salida, Buzon[][] intermedios, int n) {
+    /**
+     * Este metodo retorna una matriz 3x3 de procesos intermedios 
+     * y le asigna a cada uno los buzones con los que debe trabajar
+     * @param entrada Buzon de entrada 
+     * @param salida Buzon de salida
+     * @param intermedios Matriz de buzones intermedios
+     * @return Matriz 3x3 de procesos intermedios con sus correspondientes 
+     * buzones
+     */
+    public static ProcesoIntermedio[][] crearProcesoIntermedio(Buzon entrada, Buzon salida, Buzon[][] intermedios) {
         ProcesoIntermedio[][] procesosIntermedios = new ProcesoIntermedio[3][3];
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -45,6 +67,14 @@ public class App {
 
         return procesosIntermedios;
     }
+
+    /**
+     * Metodo main que pide al usuario el tamaño de los buzones de inicio y de fin, así
+     * como el tamaño de los buzones intermedios y la cantidad de subconjuntos a procesar.
+     * Aquí se llaman las funciones descritas anteriormente y se da inicio al ProcesoInicial,
+     * ProcesoFinal y procesosIntermedios
+     * @param args
+     */
     public static void main(String[] args) {
 
         // inputs
@@ -60,7 +90,7 @@ public class App {
             System.out.println("Ingrese la cantidad de subconjuntos: ");
             int cantSubconjuntos = scanner.nextInt();
 
-            // creacion subconjuntos
+        // creacion subconjuntos
 
             ArrayList<String> subconjuntos = crearSubconjuntos(cantSubconjuntos);
 
@@ -72,8 +102,8 @@ public class App {
 
             // creacion procesos
             ProcesoInicial procesoInicial = new ProcesoInicial(buzonInicial, subconjuntos);
-            ProcesoFinal procesoFinal = new ProcesoFinal(buzonFinal, cantSubconjuntos);
-            ProcesoIntermedio[][] procesosIntermedios = crearProcesoIntermedio(buzonInicial, buzonFinal, buzonesIntermedios, cantSubconjuntos);
+            ProcesoFinal procesoFinal = new ProcesoFinal(buzonFinal);
+            ProcesoIntermedio[][] procesosIntermedios = crearProcesoIntermedio(buzonInicial, buzonFinal, buzonesIntermedios);
    
             // ejecucion procesos
 

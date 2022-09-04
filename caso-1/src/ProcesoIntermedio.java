@@ -7,6 +7,14 @@ public class ProcesoIntermedio extends Thread {
     private int filaNivel;
     private int colTransformacion;
 
+    /**
+     * Constructor de ProcesoIntermedio
+     * @param pBuzonEntrada Buzón del cual va a retirar mensajes para su transformación
+     * @param pBuzonSalida Buzón en donde almacenará los mensajes que transforme
+     * @param pColTransformacion Columna de la matriz de procesos a la que pertenece
+     * @param pFilaNivel Fila de la matriz de procesos a la que pertenece
+     */
+
     public ProcesoIntermedio(Buzon pBuzonEntrada, Buzon pBuzonSalida, int pColTransformacion, int pFilaNivel) {
         this.buzonEntrada = pBuzonEntrada;
         this.buzonSalida = pBuzonSalida;
@@ -14,10 +22,19 @@ public class ProcesoIntermedio extends Thread {
         this.filaNivel = pFilaNivel;
     }
     
+    /**
+     * Setter de mensaje
+     * @param s String que será asignada al atributo mensaje de la clase
+     */
+
     public void setMensaje(String s) {
     	this.mensaje = s;
     }
     
+    /**
+     * Metodo que transforma el mensaje presente en el atributo mensaje de acuerdo a la 
+     * fila y columna del proceso en la matriz de procesos intermedios
+     */
     public void transformar() {
         if (!this.mensaje.equals("FIN")){
         String mensajeOriginal = this.mensaje;
@@ -32,6 +49,12 @@ public class ProcesoIntermedio extends Thread {
         }
     }
     
+    /**
+     * Método run que ejecuta la espera pasiva para el retiro de mensajes del buzon de 
+     * entrada, transforma el mensaje y ejecuta la espera pasiva para el almacenamiento
+     * de mensajes en el buzon de entrada
+     */
+
     public void run() {
 
         Boolean fin = false;
