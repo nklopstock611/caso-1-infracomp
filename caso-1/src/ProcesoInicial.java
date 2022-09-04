@@ -12,10 +12,13 @@ public class ProcesoInicial extends Thread{
     }
 
     public void run() {
+        while (buzon.getArrBuzon().size() == subconjuntos.size()) {
+    		Thread.yield();
+    	}
         for (int i = 0; i < this.subconjuntos.size(); i++) {
             String mensaje = this.subconjuntos.get(i);
             synchronized(buzon){
-                this.buzon.almacenarInicial(mensaje);
+                this.buzon.almacenar(mensaje);
                 System.out.println("ProcesoInicial almacenó: " + mensaje);
             }
             

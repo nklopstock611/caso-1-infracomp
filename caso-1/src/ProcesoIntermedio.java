@@ -21,27 +21,25 @@ public class ProcesoIntermedio extends Thread {
     }
     
     public void transformar() {
-        if (this.mensaje!="FIN"){
+        if (!this.mensaje.equals("FIN")){
     	this.mensaje += "T" + Integer.toString(this.colTransformacion) + Integer.toString(filaNivel);
         }
     }
     
     public void run() {
+
         Boolean fin = false;
-        int i = 0;
-        while (fin == false && i<n){
-            synchronized(buzonEntrada){
+        while (fin == false ){
             String s = this.buzonEntrada.retirar();
             if (s.equals("FIN")){
                 fin = true;
             }
             setMensaje(s);
+            System.out.println("El proceso intermedio " + colTransformacion + " retiró "+ mensaje);
             transformar();
-            }
-            synchronized(buzonSalida){
-            this.buzonSalida.almacenar(this.mensaje, colTransformacion, filaNivel);
-            }
-            i++;
+            
+            this.buzonSalida.almacenar(this.mensaje);
+            System.out.println("El proceso intermedio " + colTransformacion + " almacenó "+ mensaje);
         }
     }
       

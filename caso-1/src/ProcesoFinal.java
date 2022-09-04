@@ -16,9 +16,12 @@ public class ProcesoFinal extends Thread {
 
     public void run() {
         int cantFin = 0;
-        while (cantFin < 3){
+        while (buzon.getArrBuzon().isEmpty()) {
+    		Thread.yield();
+        }
+        while (cantFin < 1){
             synchronized(buzon){
-                String mensaje = this.buzon.retirarFinal();
+                String mensaje = buzon.retirar();
                 if (mensaje.equals("FIN")){
                     cantFin++;
                 }

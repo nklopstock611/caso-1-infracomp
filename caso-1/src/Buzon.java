@@ -28,10 +28,7 @@ public class Buzon {
         notifyAll();
     }
 
-    public synchronized void almacenarInicial(String s) {
-        while (this.arrBuzon.size() == this.n) {
-    		Thread.yield();
-    	}
+    public synchronized void almacenar(String s) {
     	arrBuzon.add(s);
     	notifyAll();
     }
@@ -51,14 +48,16 @@ public class Buzon {
         return s;
     }
 
-    public synchronized String retirarFinal() {
-        while (this.arrBuzon.size() == 0) {
-    		Thread.yield();
-        }
+    public String retirarFinal() {
         String s = arrBuzon.remove(0);
-        notifyAll();
+        notify();
         
         return s;
+    }
+
+    public Boolean isFull(){
+        Boolean respuesta = false || this.arrBuzon.size() == this.n;
+        return respuesta;
     }
     
 }
