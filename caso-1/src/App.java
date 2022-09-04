@@ -88,6 +88,7 @@ public class App {
                     procesosIntermedios[i][j].start();
                     //CÃ³digo Tiempo espera
                 }
+                System.out.println("La transformación del nivel " + (i+1) + " finalizó");
                 subconjuntos.add("FIN");
             }
             procesoFinal.start();
