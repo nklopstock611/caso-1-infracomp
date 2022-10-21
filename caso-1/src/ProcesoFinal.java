@@ -1,29 +1,34 @@
-import java.util.ArrayList;
 
 public class ProcesoFinal extends Thread {
 
     private Buzon buzon;
-
-    private ArrayList<String> mensajeFinal;
-
-    private int n;
-
-    public ProcesoFinal(Buzon pBuzon, int pN) {
+    
+    /**
+     * Constructor de ProcesoFinal
+     * @param pBuzon BuzonFinal del cual retira mensajes
+     */
+    public ProcesoFinal(Buzon pBuzon) {
         this.buzon = pBuzon;
-        this.mensajeFinal = new ArrayList<String>();
-        this.n = pN;
     }
 
+    /**
+     * Método run que ejecuta la espera semiactiva para el retiro de 
+     * cada uno de los mensajes del buzon de salida
+     */
     public void run() {
-        // while (this.buzon.getArrBuzon().size() == 0) {
-        //     // wait(); type beat
-        // }
-        for (int i = 0; i < this.n; i++) {
-            String s = this.buzon.retirar();
-            System.out.println("ProcesoFinal retiro: " + s);
-            this.mensajeFinal.add(s);
+        int cantFin = 0;
+        while (buzon.getArrBuzon().isEmpty()) {
+    		Thread.yield();
         }
-
+        while (cantFin < 3){
+            synchronized(buzon){
+                String mensaje = buzon.retirar();
+                if (mensaje.equals("FIN")){
+                    cantFin++;
+                }
+                System.out.println("ProcesoFinal retiro: " + mensaje+ "\n");
+            }
+        }
     }
     
 }
