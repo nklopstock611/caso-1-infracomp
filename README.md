@@ -1,2 +1,2 @@
-# caso-1-infracomp
-Este es el repositorio para trabajar en el Caso 1 de InfraComp
+# Manejo de la Concurrencia
+Repositorio para el caso 1 del curso Infraestructura Computacional.
